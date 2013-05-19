@@ -23,15 +23,19 @@ footskip=5mm]{geometry}
 
 
 \begin{document}
-\title{Taxonomia de Smells em Bancos de Dados\\ \smallskip
+\title{Especificação de uma Taxonomia de \textit{Smells} em Bancos de Dados e os \textit{Database Refactoring} mais adequados para solucioná-los\\ \smallskip
 \small{ PROPOSTA DE TRABALHO DE CONCLUSÃO DE CURSO}}
 
 
 \author{%
-{\bf Fabrízio de Royes Mello }\\
+{\bf Fabrízio de Royes Mello }\\ 
 {\normalsize Pós-Graduação em Tecnologias Aplicadas a Sistemas de Informação com Métodos Ágeis} \\
 {\normalsize Centro Universitário Ritter Dos Reis - UNIRITTER} \\
 {\normalsize fabriziomello@gmail.com}  \\ \\
+%
+{\bf Guilherme Silva de Lacerda } \\
+{\normalsize Professor Orientador}\\
+{\normalsize guilherme\_lacerda@uniritter.edu.br} \\
 %
 }
 \maketitle
@@ -39,54 +43,48 @@ footskip=5mm]{geometry}
 
 \Section{Relevância do trabalho} \label{sec:intro}
 
-Uma estrutura de um banco de dados, diferentemente da estrutura de um software, tende a deteriorar naturalmente com o passar do tempo.
+Uma estrutura de um banco de dados, diferentemente da estrutura de um software, tende a deteriorar naturalmente com o passar do tempo. Dentre várias causas de deterioração podemos citar o crescimento progressivo do volume de dados devido ao aumento natural de usuários que o utilizam e também ao seu próprio tempo de uso, tornando um modelo de dados que no início era eficiente para solução proposta em um modelo ineficiente e defasado.
 
-A constante mudança de requisitos de negócio demandam modificações no software que os implementam, e consequentemente, nos seus bancos de dados. 
+Essa deterioração natural aliada a mudanças em requisitos de negócio exigem modificações e refatorações tanto no software que os implementa quanto em seus bancos de dados. Entretanto a refatoração de um banco de dados é mais complexa que a de um software devido aos seguintes motivos: (i) além de manter comportamento também é necessário manter as informações (dados) e (ii) acoplamento com diversas origens (outras aplicações, \textit{frameworks}, integrações, etc) \cite{Ambler:RefactoringDatabases}.
 
-Dentre várias causas de deterioração podemos citar o crescimento progressivo do volume de dados devido o aumento de usuários que utilizam o banco de dados e também o seu próprio tempo de uso, tornando um modelo de dados, que era eficiente para solução proposta, em um modelo ineficiente e defasado.
+Devido a essas dificuldades a evolução de uma estrutura de banco de dados torna-se um desafio, ocorrendo assim um fenômeno conhecido como \textit{Bad Smells} (mal cheiros), da mesma forma que ocorre com o código de um software. Em software um \textit{code smell} (\textit{bad smell}) é uma categoria comum de problema no código fonte que indica a necessidade de refatoração \cite{Fowler:Refatoracao}, e o mesmo ocorre com bancos de dados, onde são chamados \textit{database smells} \cite{Ambler:RefactoringDatabases}.
+
+Em \cite{Ambler:RefactoringDatabases} existe uma lista de alguns \textit{database smells} e uma breve descrição de suas principais características, porém não é estabelecida uma relação direta com as técnicas de \textit{database refactoring} que podem ser utilizados para resolvê-los.
 
 
-
-Muitos investidores atuam no mercado de ações com o objetivo de realizar investimentos que possam ser rentáveis. Neste sentido, uma previsão confiável do comportamento do mercado pode auxiliar os investidores em seus objetivos. Contudo, esta não é uma tarefa fácil e ainda não há um método amplamente aceito para prever o movimento dos preços das ações~\cite{Schumaker:2010}. Os desafios envolvem a compreensão da dinâmica do mercado, onde parâmetros mudam constantemente e muitas vezes se quer estão (são) bem definidos(conhecidos). Por esta razão, a análise do mercado de ações tem atraído o interesse da comunidade científica.
-
-A \textit{análise técnica} e a \textit{análise fundamentalista} são duas das principais vertentes no contexto de prever o comportamento do mercado financeiro \cite{Brum:acoes}. Basicamente, a análise técnica emprega dados históricos de preços no processo de prever o comportamento futuro destes preços, enquanto que a análise fundamentalista baseia-se em fatores econômicos que afetam o ramo de atividade das empresas, como indicadores econômicos e quebras de produção. Neste contexto, eventos/notícias podem ter grande impacto no comportamento dos preços das ações no mercado e, por esta razão, um dos pré-requisitos de um analista de mercado é estar a par de notícias associadas a ramos de atividades de uma carteira de investimentos.
-
-Com base no grande e crescente volume de informações que são gerados diariamente nos canais de notícias, se torna impraticável para um analista monitorar uma grande quantidade de eventos relativos ao mercado de capitais, sobretudo quando este processo deve ocorrer na velocidade das oscilações de preços dos ativos financeiros. Assim, para embasar a tomada de decisão sobre títulos transacionados em bolsa de valores, se torna útil o processamento computacional prévio destas informações de forma a entregar para o profissional especialista somente as informações relevantes ao contexto de interesse. 
-
-No contexto discutido acima são raros os trabalhos que envolvem o mercado nacional e sua suscetibilidade à notícias/eventos. Quando o foco é o mercado de ações brasileiro, a literatura apresenta métodos que exploram o histórico de preços das ações do ponto de vista de técnicas de análise de séries temporais~\cite{Edgard:Dissertacao}, porém não verificou-se trabalhos que visam automatizar a busca por padrões de conteúdo em notícias (texto) como forma de entender o comportamento do mercado de ações.
 
 \Section{Objetivos}\label{sec:objetivos}
 
 \subsection{Objetivo geral}
 
-Este trabalho propõe um estudo sobre as potencialidades de métodos clássicos de mineração de texto focado na caracterização automática do conteúdo de notícias que impactam no mercado de ações brasileiro.
+O presente trabalho consiste em montar a taxonomia para os \textit{smells} em bancos de dados e sugerir, através de experimentos, os \textit{database refactorings} mais adequados para serem usados na sua solução.
 
 \subsection{Objetivos específicos}
 
 Entre os objetivos específicos deste trabalho pode-se destacar:
 
 \begin{itemize}
-  \item Avaliar a existência de padrões em notícias que versam sobre o mercado financeiro brasileiro em contextos de alta e baixa de preços.
-  \item Investigar a influência de falsos positivos em dados de treinamento para a classificação supervisionada, uma vez que assume-se que todas as notícias que ocorrem em janelas temporais caracterizadas pela queda de preços são, de fato, notícias que levam a queda destes e vice-versa.
-  \item Prover um estudo inicial sobre a bolsa brasileira no sentido de responder, de forma automatizada, perguntas como \textit{"O quão similar as notícias de hoje são em relação àquelas do passado?"}, provendo suporte a decisão para analistas que buscam medir o impacto de determinados eventos sobre um conjunto de ações.
+  \item Estudar a concepção e a forma de aplicação dos \textit{database refactorings} existentes.
+  \item Realizar revisão de literatura para verificar como encontrar e identificar \textit{smells} em bancos de dados.
+  \item Investigar, através de experimentos, os \textit{database refactorings} mais adequados para solução de \textit{database smells}.
+  \item Prover um estudo inicial sobre a co-relação entre \textit{refactorings} e \textit{smells} em bancos de dados, para obter, como produto, uma taxonomia inicial com as informações mínimas necessárias para solução.
 \end{itemize}
 
 \Section{Solução proposta}
 
-Este trabalho visa avaliar o desempenho de uma abordagem \textit{bag-of-words} \cite{Manning:IR} para propósitos de descoberta de padrões noticiosos e seus reflexos no mercado de ações brasileiro. Especificamente, busca-se avaliar as potencialidades de uma abordagem clássica e difundida de mineração de textos para a caracterização/classificação de textos noticiosos em contextos de alta e baixa de preços no mercado de ações brasileiro. Neste sentido, avalia-se as potencialidades da abordagem proposta para realizar previsões de curto e médio prazo sobre o comportamento do mercado acionário brasileiro. 
+Este trabalho visa formar uma taxonomia para os \textit{database smells} e identificar os \textit{refactorings} mais adequados a serem aplicados para solucionar esse tipo de problema em bancos de dados. Para montar essa taxonomia serão realizados experimentos, e os resultados coletados formarão um catálogo de \textit{smells} e \textit{refactorings} em bancos de dados.
 
-Os experimentos serão conduzidos sobre uma base textual histórica que contém mais de 5000 notícias sobre o mercado do petróleo e do aço no Brasil. Os textos provêm das principais fontes de notícias brasileiras que publicam o seu conteúdo na internet, como Boletim Reuters, Correio Braziliense, Isto é Dinheiro, O Estado de SP, O Globo, Folha de SP e Valor Econômico. As cotações dos ativos serão obtidas do site da Bovespa, que mantém para consulta pública até dez anos de valores de abertura e fechamento de todos os papéis negociados pela entidade.
-
+Os experimentos serão realizados utilizando bancos de dados de cenários distintos: OLTP (Online Transactional Processing), Web e DW (Data warehouse). Os bancos de dados serão fornecidos por empresas que tem interesse na solução proposta por este trabalho.
 
 \Section{Cronograma de desenvolvimento}\label{sec:cronograma}
 
 A Tabela \ref{tab:cronograma1} apresenta o cronograma de desenvolvimento do trabalho conforme a numeração das atividades abaixo:
 \begin{enumerate}
-	\item Levantamento de dados históricos (documentos e cotações);
-	\item Pré-processamento dos dados históricos, como remoção de \textit{stopwords} e \textit{stemming} \cite{Weiss:textMining,orengo_stemming};
-	\item Estudo sobre as principais técnicas de mineração de textos;  
-	\item Levantamento sobre abordagens de mineração de textos voltadas ao mercado de ações;
-	\item Testes preliminares com bibliotecas de mineração de dados;
+	\item Estudo sobre \textit{database refactoring} e \textit{database smells};
+	\item Montagem dos cenários de teste utilizando os bancos de dados fornecidos por terceiros;
+	\item Estudo sobre taxonomia;
+	\item Realização dos experimentos para identificação de \textit{smells} e aplicação de \textit{refactorings};
+	\item Coleta dos resultados dos experimentos para definição de uma taxonomia e compor um catálogo de \textit{smells} e \textit{refactorings};
 	\item Redação do artigo;
 	\item Submissão do artigo para a banca;
 \end{enumerate}
@@ -96,12 +94,12 @@ A Tabela \ref{tab:cronograma1} apresenta o cronograma de desenvolvimento do trab
 	\caption{Cronograma de atividades para o trabalho. \label{tab:cronograma1}}
 		\begin{tabular}{|c|c|c|c|c|c|c|}
 			\hline			
-			 \bf Atividade & \bf 7/12 & \bf 8/12 & \bf 9/12 & \bf 10/12 & \bf 11/12 & \bf 12/12  \\	\hline \hline
-					 1 & x & x &   &   &   &   \\ \hline
-					 2 &   & x & x & x &   &   \\ \hline
+			 \bf Atividade & \bf Jul/2014 & \bf Ago/2014 & \bf Set/2014 & \bf Out/2014 & \bf Nov/2014 & \bf Dez/2014  \\	\hline \hline
+					 1 & x & x & x &   &   &   \\ \hline
+					 2 & x & x &   &   &   &   \\ \hline
 					 3 & x & x & x &   &   &   \\ \hline
-					 4 & x & x & x & x &   &   \\ \hline
-					 5 &   &   &   & x & x &   \\ \hline
+					 4 &   & x & x & x & x &   \\ \hline
+					 5 &   & x & x & x & x &   \\ \hline
 					 6 &   &   & x & x & x &   \\ \hline
 					 7 &   &   &   &   & x &   \\ \hline
 		\end{tabular}
