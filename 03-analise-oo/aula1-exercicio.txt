@@ -17,3 +17,23 @@ status dos sensores, ativar função pânico, entre outras.
 Além do ativamento manual da emergência, o sistema também pode
 automaticamente alertar central de emergência em caso de detecção de alguma
 anormalidade.
+
+
+Atores:
+- Proprietario Imovel
+- Central de Emergência
+- Sensores
+- Monitor
+
+Casos de Uso:
+- Detectar Acesso Ilegal (Sensor)
+- Detectar Incêndio (Sensor)
+- Detectar Inundação (Sensor)
+- Medir nivel de monóxido de carbono (Sensor)
+- Ativar Monitoramento (Proprietario Imovel)
+- Desativar Monitoramento (Proprietario Imovel)
+- Verificar Status sensores (Proprietario Imovel)
+- Ativar Funcao Pânico (Proprietario Imovel)
+- Ativamento Manual de Emergencia (Proprietario Imovel)
+- Alertar Central de Emergencia (Monitor)
+- Responder a um incidente (Central de Emergencia)
