@@ -1,0 +1,19 @@
+Casa Segura
+
+Pesquisas indicam que o mercado de monitoramento domiciliar está crescendo
+em torno de 40% ao ano.
+Lançaremos um produto no mercado que fará a segurança domiciliar e o
+nomearemos Casa Segura.
+A função de segurança domiciliar protegeria e ou reconheceria uma série de
+situações indesejáveis como acesso ilegal, incêndios, inundações, niveis de
+monóxido de carbono, entre outras.
+
+O sistema usará uma série de sensores sem fio que detectarão as situações
+descritas acima. O sistema pode ser programado pelo proprietário da casa de
+forma remota. O proprietário poderá acessar via interface web e efetuar
+tarefas como ativar monitorramento, desativar monitoramento, verificar
+status dos sensores, ativar função pânico, entre outras.
+
+Além do ativamento manual da emergência, o sistema também pode
+automaticamente alertar central de emergência em caso de detecção de alguma
+anormalidade.
