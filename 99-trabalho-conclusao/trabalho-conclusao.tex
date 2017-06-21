@@ -3,7 +3,7 @@
 \usepackage{cbic2011}
 \usepackage{times,amsfonts,enumerate,amssymb,amsmath,epsfig,bm,cite}
 \usepackage{color}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[OT1]{fontenc}
 \usepackage[brazil]{babel}
 
@@ -22,13 +22,13 @@ footskip=5mm]{geometry}
 \newcommand\mf[1]{\text{\boldmath$#1$}}
 
 \begin{document}
-\title{Exemplo pr·tico de RefatoraÁ„o de Bancos de Dados Relacionais\\ \smallskip
-\small{TRABALHO DE CONCLUS√O DE CURSO}}
+\title{Exemplo pr√°tico de Refatora√ß√£o de Bancos de Dados Relacionais\\ \smallskip
+\small{TRABALHO DE CONCLUS√ÉO DE CURSO}}
 
 \author{
-	{\bf FabrÌzio de Royes Mello }\\ 
-	{\normalsize PÛs-GraduaÁ„o em Tecnologias Aplicadas a Sistemas de InformaÁ„o com MÈtodos ¡geis} \\
-	{\normalsize Centro Universit·rio Ritter Dos Reis - UNIRITTER} \\
+	{\bf Fabr√≠zio de Royes Mello }\\ 
+	{\normalsize P√≥s-Gradua√ß√£o em Tecnologias Aplicadas a Sistemas de Informa√ß√£o com M√©todos √Ågeis} \\
+	{\normalsize Centro Universit√°rio Ritter Dos Reis - UNIRITTER} \\
 	{\normalsize fabriziomello@gmail.com}  \\ \\
 	%
 	{\bf Guilherme Silva de Lacerda } \\
@@ -42,8 +42,8 @@ footskip=5mm]{geometry}
 \maketitle
 \noindent
 \small
-%TEXTO DO RESUMO (em portuguÍs}
-Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refatoraÁ„o de um banco de dados usando como exemplo um modelo simplificado
+%TEXTO DO RESUMO (em portugu√™s}
+Este trabalho tem como objetivo demonstrar de forma pr√°tica o processo de refatora√ß√£o de um banco de dados usando como exemplo um modelo simplificado
 
 \noindent
 %PALAVRAS-CHAVE} 
@@ -51,32 +51,32 @@ Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refato
 \end{abstract}
 
 \maketitle
-\section{IntroduÁ„o} \label{sec:intro}
+\section{Introdu√ß√£o} \label{sec:intro}
 
-	Uma estrutura de um banco de dados, diferentemente da estrutura de um software, tende a deteriorar naturalmente com o passar do tempo. Dentre v·rias causas de deterioraÁ„o podemos citar o crescimento progressivo do volume de dados devido ao aumento natural de usu·rios que o utilizam e tambÈm ao seu prÛprio tempo de uso, tornando um modelo de dados que no inÌcio era eficiente para soluÁ„o proposta em um modelo ineficiente e defasado.
+	Uma estrutura de um banco de dados, diferentemente da estrutura de um software, tende a deteriorar naturalmente com o passar do tempo. Dentre v√°rias causas de deteriora√ß√£o podemos citar o crescimento progressivo do volume de dados devido ao aumento natural de usu√°rios que o utilizam e tamb√©m ao seu pr√≥prio tempo de uso, tornando um modelo de dados que no in√≠cio era eficiente para solu√ß√£o proposta em um modelo ineficiente e defasado.
 
-	Essa deterioraÁ„o natural aliada a mudanÁas em requisitos de negÛcio exigem modificaÁıes e refatoraÁıes tanto no software que os implementa quanto em seus bancos de dados. Entretanto a refatoraÁ„o de um banco de dados È mais complexa que a de um software devido aos seguintes motivos: (i) alÈm de manter comportamento tambÈm È necess·rio manter as informaÁıes (dados) e (ii) acoplamento com diversas origens (outras aplicaÁıes, \textit{frameworks}, integraÁıes, etc) \cite{Ambler:RefactoringDatabases}.
+	Essa deteriora√ß√£o natural aliada a mudan√ßas em requisitos de neg√≥cio exigem modifica√ß√µes e refatora√ß√µes tanto no software que os implementa quanto em seus bancos de dados. Entretanto a refatora√ß√£o de um banco de dados √© mais complexa que a de um software devido aos seguintes motivos: (i) al√©m de manter comportamento tamb√©m √© necess√°rio manter as informa√ß√µes (dados) e (ii) acoplamento com diversas origens (outras aplica√ß√µes, \textit{frameworks}, integra√ß√µes, etc) \cite{Ambler:RefactoringDatabases}.
 
-	Devido a essas dificuldades a evoluÁ„o de uma estrutura de banco de dados torna-se um desafio, ocorrendo assim um fenÙmeno conhecido como \textit{Bad Smells} (mal cheiros), da mesma forma que ocorre com o cÛdigo de um software. Em software um \textit{code smell} (\textit{bad smell}) È uma categoria comum de problema no cÛdigo fonte que indica a necessidade de refatoraÁ„o \cite{Fowler:Refatoracao}, e o mesmo ocorre com bancos de dados, onde s„o chamados \textit{database smells} \cite{Ambler:RefactoringDatabases}.
+	Devido a essas dificuldades a evolu√ß√£o de uma estrutura de banco de dados torna-se um desafio, ocorrendo assim um fen√¥meno conhecido como \textit{Bad Smells} (mal cheiros), da mesma forma que ocorre com o c√≥digo de um software. Em software um \textit{code smell} (\textit{bad smell}) √© uma categoria comum de problema no c√≥digo fonte que indica a necessidade de refatora√ß√£o \cite{Fowler:Refatoracao}, e o mesmo ocorre com bancos de dados, onde s√£o chamados \textit{database smells} \cite{Ambler:RefactoringDatabases}.
 
-	O presente trabalho consiste em demonstrar um exemplo completo de \textit{database refactoring} que pode ser utilizado tanto para evoluÁ„o do \textit{schema} de um banco de dados quanto para eliminaÁ„o de \textit{smells}.
+	O presente trabalho consiste em demonstrar um exemplo completo de \textit{database refactoring} que pode ser utilizado tanto para evolu√ß√£o do \textit{schema} de um banco de dados quanto para elimina√ß√£o de \textit{smells}.
 
 
-\section{Revis„o de Literatura}\label{sec:revliteratura}
+\section{Revis√£o de Literatura}\label{sec:revliteratura}
 
 \subsection{Database Refactoring}
-	RefatoraÁ„o de cÛdigo (\textit{Code Refactoring}) È uma disciplina/processo que consiste em melhorar a estrutura interna de um software sem modificar seu comportamento externo \cite{Fowler:Refatoracao}, e uma RefatoraÁ„o de Banco de Dados (\textit{Database Refactoring}) parte do mesmo princÌpio, porÈm alÈm de manter o comportamento externo tambÈm deve manter a sem‚ntica da informaÁ„o que ele mantÈm/armazena, e por esse motivo È considerada mais difÌcil \cite{Ambler:RefactoringDatabases}.
+	Refatora√ß√£o de c√≥digo (\textit{Code Refactoring}) √© uma disciplina/processo que consiste em melhorar a estrutura interna de um software sem modificar seu comportamento externo \cite{Fowler:Refatoracao}, e uma Refatora√ß√£o de Banco de Dados (\textit{Database Refactoring}) parte do mesmo princ√≠pio, por√©m al√©m de manter o comportamento externo tamb√©m deve manter a sem√¢ntica da informa√ß√£o que ele mant√©m/armazena, e por esse motivo √© considerada mais dif√≠cil \cite{Ambler:RefactoringDatabases}.
 
-	Pode-se ent„o considerar que um \textit{Database Refactoring} È uma mudanÁa disciplinada na estrutura de uma base de dados que n„o altera sua sem‚ntica, porÈm melhora seu projeto e minimiza a introduÁ„o de dados inconsistentes \cite{Mello:DatabaseRefactoring}.
+	Pode-se ent√£o considerar que um \textit{Database Refactoring} √© uma mudan√ßa disciplinada na estrutura de uma base de dados que n√£o altera sua sem√¢ntica, por√©m melhora seu projeto e minimiza a introdu√ß√£o de dados inconsistentes \cite{Mello:DatabaseRefactoring}.
 
-	Conforme ˙ltima definiÁ„o minimizar a introduÁ„o de dados inconsistentes È um dos grandes objetivos de se realizar uma refatoraÁ„o na estrutura de um banco de dados, ou seja, melhorar o desing atual para melhorar a consistÍncia dos dados e tambÈm a qualidade dos novos dados que ser„o adicionados.
+	Conforme √∫ltima defini√ß√£o minimizar a introdu√ß√£o de dados inconsistentes √© um dos grandes objetivos de se realizar uma refatora√ß√£o na estrutura de um banco de dados, ou seja, melhorar o desing atual para melhorar a consist√™ncia dos dados e tamb√©m a qualidade dos novos dados que ser√£o adicionados.
 
-	E esta tarefa n„o È simples, pois existe um fator preponderante no que diz respeito a dificuldade de execuÁ„o deste tipo de refatoraÁ„o que È o \textbf{acoplamento}.
+	E esta tarefa n√£o √© simples, pois existe um fator preponderante no que diz respeito a dificuldade de execu√ß√£o deste tipo de refatora√ß√£o que √© o \textbf{acoplamento}.
 
 \subsubsection{Acoplamento}
-	… a medida de dependÍncia entre dois elementos. Quanto mais acoplados dois elementos estiverem, maior a chance que a mudanÁa em um implique na mudanÁa em outro \cite{Wikipedia:Coupling}. 
+	√â a medida de depend√™ncia entre dois elementos. Quanto mais acoplados dois elementos estiverem, maior a chance que a mudan√ßa em um implique na mudan√ßa em outro \cite{Wikipedia:Coupling}. 
 
-	Quanto mais acoplado estiver o banco de dados, ou seja, dependente de diversas aplicaÁıes externas, mais difÌcil ser· a aplicaÁ„o de uma refatoraÁ„o\cite{Ambler:RefactoringDatabases}.
+	Quanto mais acoplado estiver o banco de dados, ou seja, dependente de diversas aplica√ß√µes externas, mais dif√≠cil ser√° a aplica√ß√£o de uma refatora√ß√£o\cite{Ambler:RefactoringDatabases}.
 	
 	\begin{figure}[ht]
 		\centering
@@ -85,7 +85,7 @@ Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refato
 		\label{figura:1}
 	\end{figure}
 	
-	A Figura~\ref{figura:1} demonstra um cen·rio \textbf{Single-Database Application} que È bem simplificado, onde a aplicaÁ„o de uma refatoraÁ„o exigir· um esforÁo menor do que a Figura~\ref{figura:2} onde o \textbf{Multi-Application Database} È considerado o pior caso exigindo muito planejamento e cuidado devido a dependÍncia de in˙meras aplicaÁıes.
+	A Figura~\ref{figura:1} demonstra um cen√°rio \textbf{Single-Database Application} que √© bem simplificado, onde a aplica√ß√£o de uma refatora√ß√£o exigir√° um esfor√ßo menor do que a Figura~\ref{figura:2} onde o \textbf{Multi-Application Database} √© considerado o pior caso exigindo muito planejamento e cuidado devido a depend√™ncia de in√∫meras aplica√ß√µes.
 
 	\begin{figure}[ht]
 		\centering
@@ -95,18 +95,18 @@ Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refato
 	\end{figure}
 
 	
-\subsubsection{Processo de refatoraÁ„o}
-	Um processo È um conjunto organizado de atividades com um objetivo em comum. Executar um \textit{database refactoring} em um cen·rio \textit{Single-Database Application} ou \textit{Multi-Application Database} requer um processo (figura~\ref{figura:3}), por mais simples que seja. A grande diferenÁa na execuÁ„o em ambos cen·rios È que no caso do \textit{Multi-Application Database} o perÌodo de transiÁ„o poder· ser mais longo em relaÁ„o ao \textit{Single-Database Application} \cite{Ambler:RefactoringDatabases}.
+\subsubsection{Processo de refatora√ß√£o}
+	Um processo √© um conjunto organizado de atividades com um objetivo em comum. Executar um \textit{database refactoring} em um cen√°rio \textit{Single-Database Application} ou \textit{Multi-Application Database} requer um processo (figura~\ref{figura:3}), por mais simples que seja. A grande diferen√ßa na execu√ß√£o em ambos cen√°rios √© que no caso do \textit{Multi-Application Database} o per√≠odo de transi√ß√£o poder√° ser mais longo em rela√ß√£o ao \textit{Single-Database Application} \cite{Ambler:RefactoringDatabases}.
 
-	Conforme j· citado um \textit{database refactoring} n„o È uma atividade simples ent„o caso seja identificada a real necessidade de refatorar um banco de dados ent„o pode-se usar o seguinte roteiro (processo) como guia:
+	Conforme j√° citado um \textit{database refactoring} n√£o √© uma atividade simples ent√£o caso seja identificada a real necessidade de refatorar um banco de dados ent√£o pode-se usar o seguinte roteiro (processo) como guia:
 	\begin{enumerate}
 		\item Escolher o refactoring mais apropriado;
 		\item Depreciar o esquema original;
-		\item Testar antes, durante e apÛs;
+		\item Testar antes, durante e ap√≥s;
 		\item Modificar esquema;
 		\item Migrar os dados;
-		\item Modificar cÛdigo externo;
-		\item Executar testes de regress„o;
+		\item Modificar c√≥digo externo;
+		\item Executar testes de regress√£o;
 		\item Versionar seu trabalho;
 		\item Anunciar o refactoring.
 	\end{enumerate}
@@ -114,78 +114,78 @@ Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refato
 	\begin{figure}[ht]
 		\centering
 		\includegraphics[width=.5\textwidth]{img/databaseRefactoringProcess.png}
-		\caption{Processo de RefatoraÁ„o de Banco de Dados}
+		\caption{Processo de Refatora√ß√£o de Banco de Dados}
 		\label{figura:3}
 	\end{figure}
 
-	Na Figura~\ref{figura:4} È demonstrado um pequeno ciclo descrevendo um fluxo b·sico para aplicaÁ„o de uma refatoraÁ„o. Deve-se observar com atenÁ„o o \textbf{PerÌodo de TransiÁ„o}, que È a fase mais importante, principalmente para cen·rios \textbf{Multi-Database Application} (Figura 2), onde È importante ter em mente que n„o geralmente È invi·vel aplicar a refatoraÁ„o e \textit{deploy} em ambiente de produÁ„o de todas as aplicaÁıes ao mesmo tempo. 
+	Na Figura~\ref{figura:4} √© demonstrado um pequeno ciclo descrevendo um fluxo b√°sico para aplica√ß√£o de uma refatora√ß√£o. Deve-se observar com aten√ß√£o o \textbf{Per√≠odo de Transi√ß√£o}, que √© a fase mais importante, principalmente para cen√°rios \textbf{Multi-Database Application} (Figura 2), onde √© importante ter em mente que n√£o geralmente √© invi√°vel aplicar a refatora√ß√£o e \textit{deploy} em ambiente de produ√ß√£o de todas as aplica√ß√µes ao mesmo tempo. 
 
 	\begin{figure}[ht]
 		\centering
 		\includegraphics[width=.5\textwidth]{img/databaseRefactoringLifecycle.png}
-		\caption{Ciclo de Vida de uma RefatoraÁ„o de Banco de Dados}
+		\caption{Ciclo de Vida de uma Refatora√ß√£o de Banco de Dados}
 		\label{figura:4}
 	\end{figure}
 
-	Dificilmente consegue-se alterar todas as aplicaÁıes ao mesmo tempo, principalmente se existir dependÍncia de fornecedores externos, ent„o vocÍ ser· necess·rio suportar o esquema original e o esquema resultante ao mesmo tempo, para somente quando todas aplicaÁıes estiverem suportando apenas o esquema resultante, ou novo esquema, ser· possÌvel depreciar antigo esquema e assim finalizar este perÌodo.
+	Dificilmente consegue-se alterar todas as aplica√ß√µes ao mesmo tempo, principalmente se existir depend√™ncia de fornecedores externos, ent√£o voc√™ ser√° necess√°rio suportar o esquema original e o esquema resultante ao mesmo tempo, para somente quando todas aplica√ß√µes estiverem suportando apenas o esquema resultante, ou novo esquema, ser√° poss√≠vel depreciar antigo esquema e assim finalizar este per√≠odo.
 
-\subsubsection{EstratÈgias de \textit{Database Refactoring}}
-	Existem alguns pontos a considerar como estratÈgias para adoÁ„o de um \textit{database refactoring}:
+\subsubsection{Estrat√©gias de \textit{Database Refactoring}}
+	Existem alguns pontos a considerar como estrat√©gias para ado√ß√£o de um \textit{database refactoring}:
 	\begin{itemize}
-		\item Pequenas mudanÁas s„o mais f·ceis de aplicar;
+		\item Pequenas mudan√ßas s√£o mais f√°ceis de aplicar;
 		\item Identifique unicamente cada refactoring;
-		\item Implemente uma grande mudanÁa realizando v·rias pequenas mudanÁas;
-		\item Tenha uma tabela de configuraÁ„o/versionamento do seu banco de dados;
-		\item Priorize \textit{triggers} ao invÈs de \text{views} ou sincronizaÁıes em lote;
-		\item Escolha um perÌodo de transiÁ„o suficiente para realizar as mudanÁas;
-		\item Simplifique sua estratÈgia de controle de vers„o de banco de dados;
-		\item Simplifique negociaÁıes com outros times;
+		\item Implemente uma grande mudan√ßa realizando v√°rias pequenas mudan√ßas;
+		\item Tenha uma tabela de configura√ß√£o/versionamento do seu banco de dados;
+		\item Priorize \textit{triggers} ao inv√©s de \text{views} ou sincroniza√ß√µes em lote;
+		\item Escolha um per√≠odo de transi√ß√£o suficiente para realizar as mudan√ßas;
+		\item Simplifique sua estrat√©gia de controle de vers√£o de banco de dados;
+		\item Simplifique negocia√ß√µes com outros times;
 		\item Encapsule acesso ao banco de dados;
 		\item Habilite-se a montar facilmente um ambiente de banco de dados;
-		\item N„o duplique SQL;
-		\item Coloque os ativos de banco de dados sobre controle de mudanÁas;
-		\item Seja cuidadoso com polÌticas.
+		\item N√£o duplique SQL;
+		\item Coloque os ativos de banco de dados sobre controle de mudan√ßas;
+		\item Seja cuidadoso com pol√≠ticas.
 	\end{itemize}
 
-	Os items acima mostram apenas algumas sugestıes, em forma de \textbf{liÁıes aprendidas}, de algumas estratÈgias que podem ser consideradas quando existir a necessidade de realizar uma refatoraÁ„o. Para apoiar essas estratÈgias existe um cat·logo que descrevem diversos tipos de refatoraÁıes em bancos de dados e exemplos de uso que ser„o apresentadas no prÛximo tÛpico deste trabalho.
+	Os items acima mostram apenas algumas sugest√µes, em forma de \textbf{li√ß√µes aprendidas}, de algumas estrat√©gias que podem ser consideradas quando existir a necessidade de realizar uma refatora√ß√£o. Para apoiar essas estrat√©gias existe um cat√°logo que descrevem diversos tipos de refatora√ß√µes em bancos de dados e exemplos de uso que ser√£o apresentadas no pr√≥ximo t√≥pico deste trabalho.
 
-\subsubsection{Cat·logo de \textit{Database Refactoring}}
-	Este cat·logo È dividido em algumas categorias:
+\subsubsection{Cat√°logo de \textit{Database Refactoring}}
+	Este cat√°logo √© dividido em algumas categorias:
 
 	\begin{enumerate}
-		\item \textit{Structural}: s„o mudanÁas na estrutura do banco de dados (tabelas, colunas, visıes, etc).
-		\item \textit{Data Quality}: s„o mudanÁas que melhoram a qualidade das informaÁıes contidas em um banco de dados.
-		\item \textit{Referential Integrity}: s„o mudanÁas que asseguram que uma linha referenciada exista em outra relaÁ„o e/ou assegura que uma linha que n„o È mais necess·ria seja removida apropriadamente.
-		\item \textit{Architectural}: s„o mudanÁas que melhoram a maneira que programas externos interagem com a base de dados.
-		\item \textit{Method}: s„o mudanÁas que melhoram a qualidade de uma Procedure um FunÁ„o.
-		\item \textit{Transformations}: mudanÁas que alteram a sem‚ntica do esquema do banco pela adiÁ„o de novas funcionalidades.
+		\item \textit{Structural}: s√£o mudan√ßas na estrutura do banco de dados (tabelas, colunas, vis√µes, etc).
+		\item \textit{Data Quality}: s√£o mudan√ßas que melhoram a qualidade das informa√ß√µes contidas em um banco de dados.
+		\item \textit{Referential Integrity}: s√£o mudan√ßas que asseguram que uma linha referenciada exista em outra rela√ß√£o e/ou assegura que uma linha que n√£o √© mais necess√°ria seja removida apropriadamente.
+		\item \textit{Architectural}: s√£o mudan√ßas que melhoram a maneira que programas externos interagem com a base de dados.
+		\item \textit{Method}: s√£o mudan√ßas que melhoram a qualidade de uma Procedure um Fun√ß√£o.
+		\item \textit{Transformations}: mudan√ßas que alteram a sem√¢ntica do esquema do banco pela adi√ß√£o de novas funcionalidades.
 	\end{enumerate}
 
 
 \subsection{\textit{Database Smells}}
-	O autor \cite{Fowler:Refatoracao} introduziu o conceito \textit{code smell} que È uma categoria de problemas recorrentes no cÛdigo fonte que indica a necessidade de refatoraÁ„o. De forma similar existem problemas recorrentes em bancos de dados que tambÈm indicam a necessidade de sua refatoraÁ„o \cite{Ambler:RefactoringDatabases}. Seguem alguns exemplos de \textit{smells}:
+	O autor \cite{Fowler:Refatoracao} introduziu o conceito \textit{code smell} que √© uma categoria de problemas recorrentes no c√≥digo fonte que indica a necessidade de refatora√ß√£o. De forma similar existem problemas recorrentes em bancos de dados que tamb√©m indicam a necessidade de sua refatora√ß√£o \cite{Ambler:RefactoringDatabases}. Seguem alguns exemplos de \textit{smells}:
 	\begin{itemize}
-		\item \textit{Multipurpose column}: se uma coluna for utilizada para v·rios fins, È prov·vel que existe um cÛdigo extra para garantir que a mesma seja usada corretamente e, muitas vezes, verificando valores de uma ou mais colunas.
-		\item \textit{Multipurpose table}: quando uma tabela È utilizada para armazenar v·rios tipos de entidades provavelmente existe uma falha de projeto.
-		\item \textit{Redundant data}: È um sÈrio problema em bancos de dados, porque quando o dado È armazenado em v·rios locais existe alto risco de ocorrer inconsistÍncias.
-		\item \textit{Tables with too many columns}: quando uma tabela tem muitas colunas È indicativo de falta de coes„o, pois est· armazenando dados de v·rias entidades.
-		\item \textit{Tables with too many rows}: tabelas muito grandes podem acarretar problemas de performance. O custo (memÛria e tempo) para buscar ou atualizar dados em uma tabela varia de acordo com o n˙mero de linhas que a mesma possui.
-		\item \textit{"Smart" columns}: coluna que armazena informaÁıes de mais de um contexto (concatenaÁ„o de informaÁıes).
+		\item \textit{Multipurpose column}: se uma coluna for utilizada para v√°rios fins, √© prov√°vel que existe um c√≥digo extra para garantir que a mesma seja usada corretamente e, muitas vezes, verificando valores de uma ou mais colunas.
+		\item \textit{Multipurpose table}: quando uma tabela √© utilizada para armazenar v√°rios tipos de entidades provavelmente existe uma falha de projeto.
+		\item \textit{Redundant data}: √© um s√©rio problema em bancos de dados, porque quando o dado √© armazenado em v√°rios locais existe alto risco de ocorrer inconsist√™ncias.
+		\item \textit{Tables with too many columns}: quando uma tabela tem muitas colunas √© indicativo de falta de coes√£o, pois est√° armazenando dados de v√°rias entidades.
+		\item \textit{Tables with too many rows}: tabelas muito grandes podem acarretar problemas de performance. O custo (mem√≥ria e tempo) para buscar ou atualizar dados em uma tabela varia de acordo com o n√∫mero de linhas que a mesma possui.
+		\item \textit{"Smart" columns}: coluna que armazena informa√ß√µes de mais de um contexto (concatena√ß√£o de informa√ß√µes).
 	\end{itemize}
 
 
 
 %\Section{Cronograma de desenvolvimento}\label{sec:cronograma}
 
-%A Tabela \ref{tab:cronograma1} apresenta o cronograma de desenvolvimento do trabalho conforme a numeraÁ„o das atividades abaixo:
+%A Tabela \ref{tab:cronograma1} apresenta o cronograma de desenvolvimento do trabalho conforme a numera√ß√£o das atividades abaixo:
 %\begin{enumerate}
 %	\item Estudo sobre \textit{database refactoring} e \textit{database smells};
-%	\item Montagem dos cen·rios de teste utilizando os bancos de dados fornecidos por terceiros;
+%	\item Montagem dos cen√°rios de teste utilizando os bancos de dados fornecidos por terceiros;
 %	\item Estudo sobre taxonomia;
-%	\item RealizaÁ„o dos experimentos para identificaÁ„o de \textit{smells} e aplicaÁ„o de \textit{refactorings};
-%	\item Coleta dos resultados dos experimentos para definiÁ„o de uma taxonomia e compor um cat·logo de \textit{smells} e \textit{refactorings};
-%	\item RedaÁ„o do artigo;
-%	\item Submiss„o do artigo para a banca;
+%	\item Realiza√ß√£o dos experimentos para identifica√ß√£o de \textit{smells} e aplica√ß√£o de \textit{refactorings};
+%	\item Coleta dos resultados dos experimentos para defini√ß√£o de uma taxonomia e compor um cat√°logo de \textit{smells} e \textit{refactorings};
+%	\item Reda√ß√£o do artigo;
+%	\item Submiss√£o do artigo para a banca;
 %\end{enumerate}
 
 %\begin{table}[h]
@@ -205,31 +205,31 @@ Este trabalho tem como objetivo demonstrar de forma pr·tica o processo de refato
 %	\end{center}		
 %\end{table}
 
-\Section{ConsideraÁıes finais}\label{sec:consideracoes}
+\Section{Considera√ß√µes finais}\label{sec:consideracoes}
 
-	Deve-se levar em consideraÁ„o que apesar destas tÈcnicas serem direcionadas para refatoraÁ„o, ou seja, mudar estrutura sem mudar sua sem‚ntica, as mesmas podem e devem ser utilizadas para evoluÁ„o da sua aplicaÁ„o, ou seja, se existe a necessidade de construir uma nova funcionalidade em uma aplicaÁ„o que est· em produÁ„o, poder„o ser utilizadas as pr·ticas apresentadas neste trabalho para evoluir a estrutura de um banco de dado de forma mais consistente e segura.
+	Deve-se levar em considera√ß√£o que apesar destas t√©cnicas serem direcionadas para refatora√ß√£o, ou seja, mudar estrutura sem mudar sua sem√¢ntica, as mesmas podem e devem ser utilizadas para evolu√ß√£o da sua aplica√ß√£o, ou seja, se existe a necessidade de construir uma nova funcionalidade em uma aplica√ß√£o que est√° em produ√ß√£o, poder√£o ser utilizadas as pr√°ticas apresentadas neste trabalho para evoluir a estrutura de um banco de dado de forma mais consistente e segura.
 
-	Baseado no que foi apresentado ent„o podemos tentar responder a pergunta \textbf{"Por quÍ Refatorar?"}:
+	Baseado no que foi apresentado ent√£o podemos tentar responder a pergunta \textbf{"Por qu√™ Refatorar?"}:
 
 	\begin{itemize}
-		\item aceitar mudanÁa de escopo;
-		\item fornecer feedback r·pido;
-		\item melhoria contÌnua;
+		\item aceitar mudan√ßa de escopo;
+		\item fornecer feedback r√°pido;
+		\item melhoria cont√≠nua;
 		\item aumentar simplicidade para facilitar entendimento;
-		\item tornar os modelos mais prÛximos do mundo real;
+		\item tornar os modelos mais pr√≥ximos do mundo real;
 		\item termos modelos simples para facilitar:
 		\begin{itemize}
-			\item manutenÁ„o e
-			\item evoluÁ„o da aplicaÁ„o
+			\item manuten√ß√£o e
+			\item evolu√ß√£o da aplica√ß√£o
 		\end{itemize}
 	\end{itemize}
 
-	E para refatorar È necess·rio conhecimento, disciplina, simplicidade, bom senso e persistÍncia, sem contar no ponto fundamental que È organizaÁ„o.
+	E para refatorar √© necess√°rio conhecimento, disciplina, simplicidade, bom senso e persist√™ncia, sem contar no ponto fundamental que √© organiza√ß√£o.
 
 
 
 %\clearpage
-\renewcommand\refname{ReferÍncias}
+\renewcommand\refname{Refer√™ncias}
 
 \bibliographystyle{cbic2011}
 \bibliography{referencias}
